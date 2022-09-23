@@ -5,7 +5,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(int id);
 
         Task<List<T>> GetAllAsync(); 
         Task<List<T>> GetAllAsync(ISpecification<T> specification);
@@ -15,7 +15,7 @@ namespace ApplicationCore.Interfaces
 
         Task<int> CountAsync(ISpecification<T> specification );
         Task<T> FirstAsync(ISpecification<T> specification);
-        Task<T> FirstOrDefaultAsync(ISpecification<T> specification);
+        Task<T?> FirstOrDefaultAsync(ISpecification<T> specification);
 
 
     }

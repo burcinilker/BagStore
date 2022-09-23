@@ -1,8 +1,13 @@
-using Infrastructure.Data;
-using Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Web.Extensions;
+global using ApplicationCore.Interfaces;
+global using Infrastructure.Data;
+global using Infrastructure.Identity;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.EntityFrameworkCore;
+global using Web.Extensions;
+global using Web.Interfaces;
+global using Web.Models;
+global using ApplicationCore.Entities;
+global using Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>() //rolleri servislere ekledik
     .AddEntityFrameworkStores<AppIdentityDbContext>();
+builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>)); //generic olmasý için bunu ekledik
+
+builder.Services.AddScoped<IHomeViewModelService,HomeViewModelService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
