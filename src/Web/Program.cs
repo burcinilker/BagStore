@@ -8,6 +8,7 @@ global using Web.Interfaces;
 global using Web.Models;
 global using ApplicationCore.Entities;
 global using Web.Services;
+using ApplicationCore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +24,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>() //rolleri servislere ekledik
     .AddEntityFrameworkStores<AppIdentityDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>)); //generic olmasý için bunu ekledik
-
+builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<IHomeViewModelService,HomeViewModelService>();
+builder.Services.AddScoped<IBasketViewModelService, BasketViewModelService>();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 await app.SeedDataAsync();

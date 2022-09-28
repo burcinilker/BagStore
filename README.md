@@ -38,6 +38,7 @@ Update-Database -Context AppIdentityDbContext
 Add-Migration BagStoreInitialCreate -Context BagStoreContext -OutputDir "Data\Migrations"
 Update-Database -Context BagStoreContext
 
+
 ```
 
 ## Useful Links
