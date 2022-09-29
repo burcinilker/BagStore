@@ -10,6 +10,11 @@ namespace Web.Controllers
         {
             _basketViewModelService = basketViewModelService;
         }
+        public async Task<IActionResult> Index() 
+        {
+            return View(await _basketViewModelService.GetBasketViewModelAsync());
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddItemToBasket(int productId, int quantity=1)
         {

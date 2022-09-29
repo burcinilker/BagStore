@@ -14,3 +14,6 @@ body {
     overflow:hidden;
     font-weight:500;
 }
+.number-input > .quantity {
+    width: 70px;
+}
