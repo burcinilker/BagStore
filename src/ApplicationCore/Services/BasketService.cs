@@ -52,5 +52,19 @@ namespace ApplicationCore.Services
             await _basketRepo.UpdateAsync(basket);
             return basket;
         }
+
+        public async Task<Basket> GetOrCreateBasketAsync(string buyerId)
+        {
+            var specBasket = new BasketWithItemsSpecification(buyerId);
+            var basket = await _basketRepo.FirstOrDefaultAsync(specBasket);
+
+            if (basket == null)
+            {
+                basket = new Basket() { BuyerId = buyerId };
+                await _basketRepo.AddAsync(basket);
+            }
+
+            return basket;
+        }
     }
 }

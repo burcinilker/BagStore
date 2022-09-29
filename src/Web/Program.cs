@@ -8,7 +8,7 @@ global using Web.Interfaces;
 global using Web.Models;
 global using ApplicationCore.Entities;
 global using Web.Services;
-using ApplicationCore.Services;
+global using ApplicationCore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

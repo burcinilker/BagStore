@@ -35,25 +35,16 @@ namespace Web.Services
             _basketService = basketService;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<BasketViewModel> AddItemToBasket(int productId, int quantity)
+        public async Task<BasketViewModel> AddItemToBasketAsync(int productId, int quantity)
         {
-
             var basket = await _basketService.AddItemToBasketAsync(BuyerId, productId, quantity);
+            return basket.ToBasketViewModel();          
+        }
 
-            return new BasketViewModel()
-            {
-                Id = basket.Id,
-                BuyerId = BuyerId,
-                Items = basket.Items.Select(x => new BasketItemViewModel()
-                {
-                    Id = x.Id,
-                    PictureUri = x.Product.PictureUri,
-                    ProductId = x.ProductId,
-                    ProductName = x.Product.Name,
-                    Quantity = x.Quantity,
-                    UnitPrice = x.Product.Price
-                }).ToList()
-            };
+        public async Task<BasketViewModel> GetBasketViewModelAsync()
+        {
+            var basket = await _basketService.GetOrCreateBasketAsync(BuyerId);
+            return basket.ToBasketViewModel();
         }
     }
 }

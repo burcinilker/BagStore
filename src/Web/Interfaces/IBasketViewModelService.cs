@@ -2,6 +2,7 @@
 {
     public interface IBasketViewModelService
     {
-        Task<BasketViewModel> AddItemToBasket(int productId,int quantity);
+        Task<BasketViewModel> GetBasketViewModelAsync();
+        Task<BasketViewModel> AddItemToBasketAsync(int productId,int quantity);
     }
 }
