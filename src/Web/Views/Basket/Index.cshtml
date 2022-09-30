@@ -13,16 +13,26 @@
         <div class="col-lg-8">
 
             <!-- Card -->
+            <form  method="post" asp-action="UpdateBasket">
+
             <div class="mb-3">
                 <div class="pt-4">
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <h5 class="mb-4">Cart (<span>@Model.TotalItems</span> items)</h5>
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <h5 class="mb-4">Cart (<span>@Model.TotalItems</span> items)</h5>
 
-                            <div>
-                                <a href="#" class="btn btn-sm btn-danger">Empty Cart</a>
-                                <button class="btn btn-sm btn-success ms-2">Update Cart</button>
+                        <div>
+                            <a id="btnEmptyCart" href="#" class="btn btn-sm btn-danger">Empty Cart</a>
+                            <button class="btn btn-sm btn-success ms-2">Update Cart</button>
+                        </div>
+                    </div>
+                    @if (Model.Items.Count == 0)
+                    {
+                        <div class="card">
+                            <div class="card-body text-center p-5">
+                                Your cart is empty
                             </div>
                         </div>
+                    }
 
                     @foreach (var item in Model.Items)
                     {
@@ -41,16 +51,16 @@
                                         </div>
                                         <div>
                                             <div class="number-input mb-0">
-                                                <input class="quantity form-control" min="1" value="@item.Quantity" type="number">
+                                                <input class="quantity form-control" name="quantities[@item.ProductId]" min="1" value="@item.Quantity" type="number">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <a href="#!" type="button" class="text-decoration-none small text-uppercase me-3">
+                                            <a data-remove-item="@item.ProductId" href="#!" type="button" class="text-decoration-none small text-uppercase me-3">
                                                 <i class="fas fa-trash-alt me-1"></i> Remove item
                                             </a>
-                                            <a href="#!" type="button" class="text-decoration-none small text-uppercase">
+                                            <a  href="#!" type="button" class="text-decoration-none small text-uppercase">
                                                 <i class="fas fa-heart me-1"></i> Move to wish list
                                             </a>
                                         </div>
@@ -64,6 +74,7 @@
 
                 </div>
             </div>
+            </form>
             <!-- Card -->
         </div>
         <!--Grid column-->
@@ -104,3 +115,24 @@
     <!-- Grid row -->
 
 </section>
+
+<form id="frmEmptyBasket" asp-action="EmptyBasket" method="post"></form>
+<form id="frmRemoveBasketItem" asp-action="RemoveBasketItem" method="post">
+    <input id="hdnProductId" type="hidden" name="productId" value="" />
+</form>
+
+@section Scripts {
+    <script>
+        $("#btnEmptyCart").click(function (event) {
+            event.preventDefault();
+            $("#frmEmptyBasket").submit();
+        });
+
+        $("[data-remove-item]").click(function (event) {
+            event.preventDefault();
+            const productId = $(this).data("remove-item");
+            $("#hdnProductId").val(productId);
+            $("#frmRemoveBasketItem").submit();
+        });
+    </script>
+}

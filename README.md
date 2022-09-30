@@ -47,5 +47,6 @@ https://github.com/dotnet-architecture/eShopOnWeb
 https://gist.github.com/kottenator/9d936eb3e4e3c3e02598
 https://gist.github.com/yigith/c6f999788b833dc3d22ac6332a053dd1
 https://sweetalert2.github.io/
+https://learn.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-6.0#dictionaries-1
 
 ```
