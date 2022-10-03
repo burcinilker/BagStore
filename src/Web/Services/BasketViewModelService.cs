@@ -38,7 +38,7 @@ namespace Web.Services
         public async Task<BasketViewModel> AddItemToBasketAsync(int productId, int quantity)
         {
             var basket = await _basketService.AddItemToBasketAsync(BuyerId, productId, quantity);
-            return basket.ToBasketViewModel();          
+            return basket.ToBasketViewModel();
         }
 
         public async Task<BasketViewModel> GetBasketViewModelAsync()
@@ -59,8 +59,18 @@ namespace Web.Services
 
         public async Task<BasketViewModel> UpdateBasketAsync(Dictionary<int, int> quantities)
         {
-            var basket= await _basketService.SetQuantities(BuyerId,quantities);
+            var basket = await _basketService.SetQuantities(BuyerId, quantities);
             return basket.ToBasketViewModel();
+        }
+
+        public async Task TransferBasketAsync()
+        {
+
+            if (AnonId != null && UserId != null)
+            {
+                await _basketService.TransferBasketAsync(AnonId, UserId);
+                HttpContext?.Response.Cookies.Delete(Constants.BASKET_COOKIENAME);
+            }
         }
     }
 }
