@@ -12,7 +12,7 @@ global using ApplicationCore.Services;
 using Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // postgre datetimeoffset fix
 // Add services to the container.
 var csIdentity = builder.Configuration.GetConnectionString("AppIdentityDbContext");
 var csBagStore = builder.Configuration.GetConnectionString("BagStoreDbContext");
@@ -26,6 +26,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<AppIdentityDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>)); //generic olmasý için bunu ekledik
 builder.Services.AddScoped<IBasketService, BasketService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IHomeViewModelService,HomeViewModelService>();
 builder.Services.AddScoped<IBasketViewModelService, BasketViewModelService>();
 
