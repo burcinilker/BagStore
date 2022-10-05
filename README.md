@@ -26,6 +26,9 @@ Install-Package Ardalis.Specification.EntityFrameworkCore
 /Web
 Install-Package Npgsql.EntityFrameworkCore.PostgreSQL
 
+/UniteTests
+Install-Package Moq
+
 ```
 
 ## Migrations
