@@ -16,9 +16,9 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // postgre d
 // Add services to the container.
 var csIdentity = builder.Configuration.GetConnectionString("AppIdentityDbContext");
 var csBagStore = builder.Configuration.GetConnectionString("BagStoreDbContext");
-builder.Services.AddDbContext<BagStoreContext>(options => options.UseNpgsql(csBagStore));
+builder.Services.AddDbContext<BagStoreContext>(options => options.UseSqlServer(csBagStore));
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
-    options.UseNpgsql(csIdentity));
+    options.UseSqlServer(csIdentity));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
